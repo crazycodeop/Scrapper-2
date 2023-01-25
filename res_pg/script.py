@@ -5,22 +5,17 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'res_pg.settings')
 django.setup()
 
 import requests
-import datetime
 from bs4 import BeautifulSoup
 import requests
 from myapi.models import Entries
 
-today = datetime.datetime.today().strftime ('%Y-%m-%d')
-def get_date_posted(ago_count):
-  Previous_Date = datetime.datetime.today() - datetime.timedelta(days=ago_count)
-  previous_d_for = Previous_Date.strftime ('%d/%m/%Y')
-  return previous_d_for
+# today = datetime.datetime.today().strftime ('%Y-%m-%d')
+# def get_date_posted(ago_count):
+#   Previous_Date = datetime.datetime.today() - datetime.timedelta(days=ago_count)
+#   previous_d_for = Previous_Date.strftime ('%d/%m/%Y')
+#   return previous_d_for
 
-cities=['Mumbai', 'Gurgaon','Noida','Ghaziabad','Greater-Noida','Bangalore','Pune','Hyderabad','Kolkata','Chennai',
-        'New-Delhi','Ahmedabad','Navi-Mumbai','Thane','Faridabad','Bhubaneswar','Bokaro-Steel-City','Vijayawada','Vrindavan', 'Bhopal',
-        'Gorakhpur','Jamshedpur','Agra','Allahabad','Jodhpur''Aurangabad','Jaipur','Mangalore','Nagpur','Guntur','Navsari','Palghar','Salem','Haridwar','Durgapur',
-        'Madurai','Manipal','Patna','Ranchi','Raipur','Sonipat','Kottayam','Kozhikode','Thrissur','Tirupati','Trivandrum','Trichy','Udaipur','Vapi','Varanasi',
-        'Vadodara','Visakhapatnam','Surat','Kanpur','Kochi','Mysore','Goa','Bhiwadi','Lucknow','Nashik','Guwahati','Chandigarh','Indore','Coimbatore','Dehradun']
+cities=['Mumbai']
 
 i=0
 
@@ -30,17 +25,17 @@ for city_opt in cities:
     response = requests.get(URL)
     response = response.content
     soup = BeautifulSoup(response, 'html.parser')
-    cards = soup.find_all('div', class_='mb-srp__card')
+    cards = soup.find_all('div', class_='m-srp-card')
 
-    posted_by = None
+    posted_by = 'Null'
     sharing_type = []
-    pg_for = None
-    charges = None
-    pg_name = None
-    link = None
-    locality = None
-    desc = None
-    date_posted = None
+    pg_for = 'Null'
+    charges = 'Null'
+    pg_name = 'Null'
+    link = 'Null'
+    locality = 'Null'
+    desc = 'Null'
+    date_posted = 'Null'
 
     for card in cards:
         pg_for = card.find('span', class_='m-srp-card__info__gender').text
@@ -81,3 +76,4 @@ for city_opt in cities:
             pass
         entry=Entries(Id=i, Posted_by=posted_by, PG_for=pg_for, Proptype='PG', Link=link, Owner=pg_name, City=city_opt, Locality=locality, Charges=charges, Description=desc)
         entry.save()
+        i=i+1

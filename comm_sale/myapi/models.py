@@ -10,8 +10,6 @@ class Entries(models.Model):
     Locality=models.TextField()
     City=models.TextField()
     Price=models.TextField()
-    Price_Sqft=models.TextField()
-    Washroom=models.TextField()
     Carpet_Area=models.TextField()
     Parking=models.TextField()
     Property_Age=models.TextField()

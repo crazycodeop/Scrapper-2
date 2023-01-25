@@ -84,7 +84,7 @@ for city_opt in cities:
                 locality = prop_locality[0]
             except:
                 locality = city_opt
-            childs = card.find('div', class_='mb-srp__card__summary__list')
+            childs = card.find('div', class_='mb-srp__card__summary-commercial__list--item')
             description = card.find('div', class_='mb-srp__card--desc')
             try: 
                 desc = description.find('p').text.replace('"', '')
@@ -133,12 +133,6 @@ for city_opt in cities:
                     facing = 'Null'
 
                 try:
-                    if 'Washroom' in elem.text:
-                        washroom = elem.text.replace('Washroom', '')
-                except:
-                    washroom = None
-
-                try:
                     if 'Water Availability' in elem.text:
                         water = elem.text.replace('Water Availability', '')
                 except:
@@ -149,7 +143,7 @@ for city_opt in cities:
                         prop_age = elem.text.replace('Property Age', '')
                 except:
                     prop_age = 'Null'
-            entry=Entries(Id=i, Date_Posted=date_posted, Proptype='Commercial Sale', Link=link, Owner=owner, BHK=bhk, Locality=locality, City=city_opt, Price=price, Carpet_Area=carpet_area, Furnishing=furnishing, Facing=facing, Property_Age=prop_age, Water_Availability=water, Parking=parking, Pantry=pantry, Overlooking=overlooking, Description=desc)
+            entry=Entries(Id=i, Date_Posted=date_posted, Proptype='Commercial Sale', Link=link, Owner=owner, Locality=locality, City=city_opt, Price=price, Carpet_Area=carpet_area, Facing=facing, Property_Age=prop_age, Water_Availability=water, Parking=parking, Pantry=pantry, Overlooking=overlooking, Description=desc)
             entry.save()
             i=i+1
    
